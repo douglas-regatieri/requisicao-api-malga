@@ -1,3 +1,2 @@
-/config/creds.py
-/config/__pycache__/creds.cpython-39.pyc
+/config
 *.csv
