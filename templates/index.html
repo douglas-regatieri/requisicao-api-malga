@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Dados</title>
+</head>
+<body>
+    <h1>Consulta de Dados</h1>
+
+    <form method="POST" action="/">
+        <label for="start_date">Data de Início:</label>
+        <input type="date" id="start_date" name="start_date" required><br><br>
+
+        <label for="start_hour">Hora de Início:</label>
+        <input type="time" id="start_hour" name="start_hour" required><br><br>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+            <option value="authorized">Autorizado</option>
+            <option value="captured">Capturado</option>
+            <option value="refunded">Estornado</option>
+        </select><br><br>
+
+        <label for="sort_type">Tipo de Ordenação:</label>
+        <select id="sort_type" name="sort_type" required>
+            <option value="DESC">Decrescente</option>
+            <option value="ASC">Crescente</option>
+        </select><br><br>
+
+        <input type="submit" value="Consultar">
+    </form>
+    
+</body>
+</html>
