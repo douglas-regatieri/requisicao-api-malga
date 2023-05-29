@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, send_file
 import requests
 import pandas as pd
 from config import creds
+import datetime
+
 
 app = Flask(__name__, template_folder='templates')
 
@@ -100,8 +102,10 @@ def save_to_csv(start_date, start_hour, status, sort_type):
                 print(f"Erro na requisição da página {page}:", response.status_code)
 
         final_df = pd.concat(df_list, ignore_index=True)  # Concatena os dataframes de todas as páginas
-
-        final_df.to_csv('dados.csv', index=False)
+        data_hora_atual = datetime.datetime.now()
+        data_hora_formatada = data_hora_atual.strftime("%Y%m%d%H%M%S")
+        data_hora_formatada = data_hora_formatada.replace("/", "").replace(":", "")
+        final_df.to_csv(f'C:\Q2 Group\INGRESSOS\dashboard_malga\database\cobrancas\dados_{data_hora_formatada}.csv', index=False)
         print("Arquivo CSV gerado com sucesso!")
 
         # Obtendo os valores únicos do campo paymentSource.cardId
@@ -129,18 +133,16 @@ def save_to_csv(start_date, start_hour, status, sort_type):
 
         if card_data_list:
             card_data_df = pd.concat(card_data_list, ignore_index=True)  # Concatena os dataframes dos cartões
-
-            card_data_df.to_csv('dados_cartoes.csv', index=False)
+            data_hora_atual = datetime.datetime.now()
+            data_hora_formatada = data_hora_atual.strftime("%Y%m%d%H%M%S")
+            data_hora_formatada = data_hora_formatada.replace("/", "").replace(":", "")
+            card_data_df.to_csv(f'C:\Q2 Group\INGRESSOS\dashboard_malga\database\lista_cartoes\dados_cartoes_{data_hora_formatada}.csv', index=False)
             print("Arquivo CSV de dados dos cartões gerado com sucesso!")
         else:
             print("Não foi possível obter os dados dos cartões.")
 
     else:
         print("Não foi possível obter os dados da API.")
-
-@app.route('/download', methods=['GET'])
-def download():
-    return send_file('dados.csv', as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
